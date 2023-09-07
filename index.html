@@ -693,9 +693,8 @@ var kb = {};
     zl.onchange = function () {
         way = 0;
         if(!zl.files.length) return; 
-        if(j8.checked){gbk2312 = 1}
         if(j9.checked){idb = 1}
-        j9.disabled =  j8.disabled='disabled'
+        j9.disabled = 'disabled'
         epz.getEntries(zl.files[0],function(ea){
             var files = ea
             var base = "";
