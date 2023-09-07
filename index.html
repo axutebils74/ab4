@@ -11,7 +11,6 @@ EPZ文件:<input type="file" id="zl"><br>
 <input type="checkbox" id="j7">繁体->简体（实验性）<br>
 <input type="checkbox" id="j6">m4a缺失时使用ogg格式替代<br>
 <input type="checkbox" id="j9">独立存档，不够稳定，部分手机设备可能会随机丢失，同时部分设备可能也不支持,（实验性）<br>
-<input type="checkbox" id="j8">gbk2312编码，加载zip失败时使用（实验性）<br>
 <hr>
 加载方式
 <select id="kk">
@@ -175,7 +174,7 @@ if(typeof TextDecoder === "undefined"){
         var k = blob;
         read(k.slice(0,8),function(r){
             r = new DataView(r);
-            var magic = r.getInt32();
+            var magic = r.getInt32(0);
             if(magic === 1162893886){
                 var len = r.getUint32(4);
                 epz.infolen = len + 8
@@ -188,7 +187,7 @@ if(typeof TextDecoder === "undefined"){
             }else if(magic === 1162893826){
                 read(k.slice(k.size-4),function(r){
                     r = new DataView(r);
-                    var len = r.getUint32();
+                    var len = r.getUint32(0);
                     epz.infolen = 4;
                     epzresolve(k,k.size-len-4,k.size-4,fn);
                 },true);
@@ -196,7 +195,7 @@ if(typeof TextDecoder === "undefined"){
                 epz.h = 1;
                 read(k.slice(k.size-4),function(r){
                     r = new DataView(r);
-                    var len = r.getUint32();
+                    var len = r.getUint32(0);
                     epz.infolen = 4;
                     epzresolve(k,k.size-len-4,k.size-4,fn);
                 },true);
